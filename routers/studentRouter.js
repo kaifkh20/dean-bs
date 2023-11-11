@@ -9,16 +9,20 @@ export const studentRouter = express.Router()
 
 studentRouter.use(auth)
 
-studentRouter.get('/student/dean/:uid',async(req,res)=>{
-    const uid = req.params.uid
+studentRouter.get('/student/dean/:uid',auth,async(req,res)=>{
+    // console.log();
+    const uid = req.path.split('/')[3]
     try{
+        await authStudent(req.uid)
         const sessions = await Sessions.findAll({where:{
             did : uid,
             available : true
         }})
         res.send(sessions)
     }catch(e){
-        console.log(e);
+        console.log(e)
+        res.status(400).send(e)
+        
     }
 })
 

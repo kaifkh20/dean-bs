@@ -39,6 +39,7 @@ signupRouter.post('/dean',async(req,res)=>{
             if(dean.days.includes(daysWithDatesLeft[i].day)){
                 date.push(daysWithDatesLeft[i].date)
             }
+            console.log(daysWithDatesLeft[i]);
         }
 
         for(let i=0;i<date.length;i++){

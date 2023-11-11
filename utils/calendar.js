@@ -18,7 +18,7 @@ const currentMonth = currentDate.getMonth()+1;
 const currentYear = currentDate.getFullYear();
 
 // Get the last day of the current month
-const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+const lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
 // Get the current day
 let currentDay = currentDate.getDate();
@@ -32,11 +32,11 @@ if(currentDay.toString().length < 2)
 export let date = `${currentYear}-${currentMonth}-${currentDay}`
 
 // Iterate through the remaining days and store them in the array
-for (let i = currentDay; i <= lastDay; i++) {
+for (let i = currentDay; i < lastDay; i++) {
     const tempDate = new Date(currentYear, currentMonth, i);
     daysWithDatesLeft.push({
         day: dayNumberToName[tempDate.getDay()],
-        date: `${currentYear}-${currentMonth}-${i}`
+        date: `${currentYear}-${currentMonth}-${i+1}`
     });
 }
 

@@ -23,10 +23,24 @@ deanRouter.get("/dean/sessions",async(req,res)=>{
                 [Op.gte] : DateTime.fromISO(date).toSQLDate()
             }
         },attributes:['did','sid','date','time']})
+
+        // console.log(DateTime.fromSeconds(sessions[0].time).toJSDate().getTime());
         for(let i=0;i<sessions.length;i++){
-            if(DateTime.fromISO(sessions[i].date).toJSDate().getTime()<DateTime.now().toJSDate().getTime()){
-                sessions.splice(i,1)
+            // console.log(sessions[i]);
+            // console.log();
+            // console.log(new DateTime(new Date()).hour>sessions[i].time.split(':')[0]);
+            // console.log(new DateTime(new Date()).minute,sessions[i].time.split(':')[1]);
+            if(DateTime.now().day===DateTime.fromSQL(sessions[i].date).day){
+                if(new DateTime(new Date()).hour>parseInt(sessions[i].time.split(':')[0])){
+                            sessions.splice(i,1)
+                }else if(new DateTime(new Date()).hour===parseInt(sessions[i].time.split(':')[0])){
+                    
+                    if(new DateTime(new Date()).minute>parseInt(sessions[i].time.split(':')[1])){
+                        sessions.splice(i,1)
+                    }
+                }
             }
+        //    
         }
         res.send(sessions)
     }catch(e){
