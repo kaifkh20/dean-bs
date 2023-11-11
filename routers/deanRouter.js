@@ -26,10 +26,7 @@ deanRouter.get("/dean/sessions",async(req,res)=>{
 
         // console.log(DateTime.fromSeconds(sessions[0].time).toJSDate().getTime());
         for(let i=0;i<sessions.length;i++){
-            // console.log(sessions[i]);
-            // console.log();
-            // console.log(new DateTime(new Date()).hour>sessions[i].time.split(':')[0]);
-            // console.log(new DateTime(new Date()).minute,sessions[i].time.split(':')[1]);
+            
             if(DateTime.now().day===DateTime.fromSQL(sessions[i].date).day){
                 if(new DateTime(new Date()).hour>parseInt(sessions[i].time.split(':')[0])){
                             sessions.splice(i,1)
